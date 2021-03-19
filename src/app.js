@@ -2,61 +2,99 @@ const express =  require("express");
 const bodyParser =  require("body-parser");
 
 const app = express();
-app.use(bodyParser.json({extended: true}));
+app.use(bodyParser.json({}));
 
 // dados estáticos
-const contatos = ["Júlia", "Carlos", "Leandro", "Paulo"];
+const produtos = [
+    {
+      nome: "Inspiron",
+      marca: "Dell",
+      tipo: "Eletrônico",
+    },
+    {
+      nome: "S10",
+      marca: "Samsung",
+      tipo: "Eletrônico"
+    },
+    {
+      nome: "Caderno",
+      marca: "Tilibra",
+      tipo: "Escolar"
+    },
+    {
+      nome: "Caneta azul 7mm",
+      marca: "BIC",
+      tipo: "Escolar"
+    }
+  ];
+
+function validarProduto(req, res, next){
+    if (!req.body.nome) {
+        return res.status(400).json({
+            error: "Necessário enviar o nome!"
+        })
+    }
+    return next();
+}
+
+// produtos/:id
+function validarIndiceproduto(req, res, next) {
+    if (!produtos[req.params.id]) {
+        return res.status(400).json({
+            error: "produto não encontrado!"        
+        });
+    }
+    return next();
+}
 
 app.get("/", function(req, res) {
     res.send("index!");
 });
 
-// função anônima :: arrow function
-// (param1,param2) => { instrucoes };
-app.get("/contatos", (req, res) => {
-    return res.json(contatos);
+// GET :: listar todos os produtos
+app.get("/produtos", (req, res) => {
+    return res.json({produtos});
 });
 
-// listando
-app.post("/contatos", (req, res) => {
-    const { nome } = req.body;
-    contatos.push(nome);
-
-    return res.json(contatos);
-});
-
-// listando 1
-app.get("/contatos/:id", (req, res) => {
+// GET :: listar um produto por id
+app.get("/produtos/:id", (req, res) => {
     const { id } = req.params;
-    const { nome } = req.body;
 
     return res.json({
-        id,
-        nome: contatos[id]
+        id : produtos[id]
     });
 });
 
-// atualizando
-app.put("/contatos/:id", (req, res) => {
-    const { id } = req.params;
-    const { nome } = req.body;
-    contatos[id] = nome;
-
-    return res.json({
-        id,
-        nome: contatos[id]
+// POST :: criar novo produto
+app.post("/produtos", (req, res) => {
+    const { nome, marca, tipo } = req.body;
+    produtos.push({
+        "nome" : nome,
+        "marca" : marca,
+        "tipo" : tipo
     });
+    
+    return res.json({produtos});
 });
 
-// apagando
-app.delete("/contatos/:id",  (req, res) => {
+// PUT :: editar produto por id
+app.put("/produtos/:id", (req, res) => {
+    const { id } = req.params;
+    const { nome, marca, tipo } = req.body;
+    
+    produtos[id].nome = nome;
+    produtos[id].marca = marca;
+    produtos[id].tipo = tipo;
+
+    return res.json({produtos});
+});
+
+// DELETE :: apagando produto por id
+app.delete("/produtos/:id", (req, res) => {
     const {id} = req.params;
-    delete contatos[id];
+    produtos.splice(id, 1);
 
-    return res.json({
-        id,
-        contatos
-    });
+    return res.json({produtos});
 });
 
 // exec servidor
