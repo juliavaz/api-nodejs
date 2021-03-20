@@ -1,8 +1,5 @@
-const express =  require("express");
-const bodyParser =  require("body-parser");
-
-const app = express();
-app.use(bodyParser.json({}));
+const express = require("express");
+const router = express.Router();
 
 // dados estáticos
 const produtos = [
@@ -28,36 +25,17 @@ const produtos = [
     }
   ];
 
-function validarProduto(req, res, next){
-    if (!req.body.nome) {
-        return res.status(400).json({
-            error: "Necessário enviar o nome!"
-        })
-    }
-    return next();
-}
-
-// produtos/:id
-function validarIndiceproduto(req, res, next) {
-    if (!produtos[req.params.id]) {
-        return res.status(400).json({
-            error: "produto não encontrado!"        
-        });
-    }
-    return next();
-}
-
-app.get("/", function(req, res) {
+router.get("/", function(req, res) {
     res.send("index!");
 });
 
 // GET :: listar todos os produtos
-app.get("/produtos", (req, res) => {
+router.get("/produtos", (req, res) => {
     return res.json({produtos});
 });
 
 // GET :: listar um produto por id
-app.get("/produtos/:id", (req, res) => {
+router.get("/produtos/:id", (req, res) => {
     const { id } = req.params;
 
     return res.json({
@@ -66,19 +44,20 @@ app.get("/produtos/:id", (req, res) => {
 });
 
 // POST :: criar novo produto
-app.post("/produtos", (req, res) => {
+router.post("/produtos", (req, res) => {
     const { nome, marca, tipo } = req.body;
+
     produtos.push({
-        "nome" : nome,
-        "marca" : marca,
-        "tipo" : tipo
+      "nome" : nome, 
+      "marca" : marca, 
+      "tipo" : tipo
     });
     
-    return res.json({produtos});
+    return res.json(produtos);
 });
 
 // PUT :: editar produto por id
-app.put("/produtos/:id", (req, res) => {
+router.put("/produtos/:id", (req, res) => {
     const { id } = req.params;
     const { nome, marca, tipo } = req.body;
     
@@ -90,14 +69,11 @@ app.put("/produtos/:id", (req, res) => {
 });
 
 // DELETE :: apagando produto por id
-app.delete("/produtos/:id", (req, res) => {
+router.delete("/produtos/:id", (req, res) => {
     const {id} = req.params;
     produtos.splice(id, 1);
 
     return res.json({produtos});
 });
 
-// exec servidor
-app.listen(3000, function() {
-    console.log("- - - -   Servidor iniciado em http://localhost:3000/ !   - - - - ");
-});
+module.exports = router;
