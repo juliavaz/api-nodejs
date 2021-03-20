@@ -14,8 +14,14 @@ Dentro da pasta do projeto:
 ### Instale as dependências:
 > npm install
 
-### Execute a aplicação:
-> npx nodemon app.js 3000
+#
+## Executar a aplicação:
+
+### API de contatos
+> npx nodemon src/contatos/index.js
+
+### API de produtos
+> npx nodemon src/produtos/index.js
 
 ### Caso a aplicação rode normalmente, estará disponível em: [http://localhost:3000/](http://localhost:3000/)
 
