@@ -7,21 +7,32 @@ Estudos baseados em NodeJS para criação de APIsREST.
 Tenha o node e o npm instalados.
 
 ### No terminal clone o projeto
-> git clone https://github.com/juliavaz/nodejs.git
+> git clone https://github.com/juliavaz/api-nodejs.git
 
 Dentro da pasta do projeto:
 
 ### Instale as dependências:
-> npm install
+```
+npm install
+```
 
 #
 ## Executar a aplicação:
 
+### Subir o servidor
+```
+ npx nodemon src/server.js
+```
+
 ### API de contatos
-> npx nodemon src/contatos/index.js
+```
+ http://localhost:3000/contatos/
+```
 
 ### API de produtos
-> npx nodemon src/produtos/index.js
+```
+ http://localhost:3000/produtos/
+```
 
 ### Caso a aplicação rode normalmente, estará disponível em: [http://localhost:3000/](http://localhost:3000/)
 
