@@ -1,8 +1,9 @@
 {
-  "name": "nodejs",
+  "name": "api-nodejs",
   "version": "1.0.0",
   "description": "Estudos baseados em NodeJS para criação de APIsREST até o momento.",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -10,15 +11,17 @@
   "license": "ISC",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/juliavaz/nodejs.git"
+    "url": "git+https://github.com/juliavaz/api-nodejs.git"
   },
   "bugs": {
-    "url": "https://github.com/juliavaz/nodejs/issues"
+    "url": "https://github.com/juliavaz/api-nodejs/issues"
   },
-  "homepage": "https://github.com/juliavaz/nodejs#readme",
+  "homepage": "https://github.com/juliavaz/api-nodejs#readme",
   "dependencies": {
     "body-parser": "^1.19.0",
     "express": "^4.17.1",
-    "nodemon": "^2.0.7"
+    "mongoose": "^5.12.4",
+    "nodemon": "^2.0.7",
+    "yup": "^0.32.9"
   }
 }
