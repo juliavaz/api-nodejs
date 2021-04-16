@@ -2,6 +2,7 @@ import { Router } from "express";
 
 import ContatoController from './controllers/ContatoController.js';
 import ProdutoController from "./controllers/ProdutoController.js";
+import EmpregadoController from "./controllers/EmpregadoController.js";
 
 const router = new Router();
 
@@ -33,5 +34,11 @@ router.get("/produtos/:id", ProdutoController.listOne);
 router.post("/produtos", ProdutoController.create);
 router.put("/produtos/:id", ProdutoController.update);
 router.delete("/produtos/:id", ProdutoController.deleteOne);
+
+routes.get("/empregados", EmpregadoController.list);
+routes.get("/empregados/:id", EmpregadoController.listOne);
+routes.post("/empregados", EmpregadoController.create);
+routes.put("/empregados/:id", EmpregadoController.update);
+routes.delete("/empregados/:id", EmpregadoController.deleteOne);
 
 export default router;
